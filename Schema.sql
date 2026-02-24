@@ -1,8 +1,13 @@
--- CREATE DATABASE
+-- ==============================
+-- 1. CREATE DATABASE
+-- ==============================
 CREATE DATABASE multi_user_editor;
 USE multi_user_editor;
 
--- USER TABLE
+-- ==============================
+-- 2. CREATE TABLES
+-- ==============================
+
 CREATE TABLE user (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100),
@@ -12,7 +17,6 @@ CREATE TABLE user (
     created_at DATETIME
 );
 
--- DOCUMENT TABLE
 CREATE TABLE document (
     document_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
@@ -23,7 +27,6 @@ CREATE TABLE document (
     FOREIGN KEY (owner_id) REFERENCES user(user_id)
 );
 
--- COLLABORATION TABLE
 CREATE TABLE collaboration (
     collaboration_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -34,7 +37,6 @@ CREATE TABLE collaboration (
     FOREIGN KEY (document_id) REFERENCES document(document_id)
 );
 
--- VERSION TABLE
 CREATE TABLE version (
     version_id INT AUTO_INCREMENT PRIMARY KEY,
     document_id INT,
@@ -45,7 +47,6 @@ CREATE TABLE version (
     FOREIGN KEY (modified_by) REFERENCES user(user_id)
 );
 
--- COMMENT TABLE
 CREATE TABLE comment (
     comment_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -56,7 +57,6 @@ CREATE TABLE comment (
     FOREIGN KEY (document_id) REFERENCES document(document_id)
 );
 
--- ACTIVITY LOG TABLE
 CREATE TABLE activity_log (
     log_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
@@ -67,7 +67,6 @@ CREATE TABLE activity_log (
     FOREIGN KEY (document_id) REFERENCES document(document_id)
 );
 
--- FOLDER TABLE
 CREATE TABLE folder (
     folder_id INT AUTO_INCREMENT PRIMARY KEY,
     folder_name VARCHAR(100),
@@ -76,7 +75,6 @@ CREATE TABLE folder (
     FOREIGN KEY (created_by) REFERENCES user(user_id)
 );
 
--- DOCUMENT FOLDER TABLE
 CREATE TABLE document_folder (
     id INT AUTO_INCREMENT PRIMARY KEY,
     document_id INT,
@@ -85,46 +83,102 @@ CREATE TABLE document_folder (
     FOREIGN KEY (folder_id) REFERENCES folder(folder_id)
 );
 
--- INSERT USER
+-- ==============================
+-- 3. INSERT DATA
+-- ==============================
+
 INSERT INTO user(name,email,password,role,created_at)
 VALUES ('Harsh','harsh@gmail.com','12345','Editor',NOW());
 
--- INSERT DOCUMENT
 INSERT INTO document(title,created_date,last_modified,document_status,owner_id)
 VALUES ('Project Report',NOW(),NOW(),'Active',1);
 
--- SHARE DOCUMENT
 INSERT INTO collaboration(user_id,document_id,permission_type,shared_date)
 VALUES (1,1,'Edit',NOW());
 
--- ADD VERSION
 INSERT INTO version(document_id,modified_by,modified_date,content)
-VALUES (1,1,NOW(),'Initial Content');
+VALUES (1,1,NOW(),'Initial Version');
 
--- ADD COMMENT
 INSERT INTO comment(user_id,document_id,comment_text,timestamp)
-VALUES (1,1,'Good Work',NOW());
+VALUES (1,1,'Nice Work',NOW());
 
--- CREATE FOLDER
 INSERT INTO folder(folder_name,created_by,created_date)
 VALUES ('Project Files',1,NOW());
 
--- MOVE DOCUMENT TO FOLDER
 INSERT INTO document_folder(document_id,folder_id)
 VALUES (1,1);
 
--- ACTIVITY LOG
 INSERT INTO activity_log(user_id,document_id,action_type,action_time)
 VALUES (1,1,'Edited Document',NOW());
 
--- SELECT DOCUMENTS
+-- ==============================
+-- 4. UPDATE DATA
+-- ==============================
+
+UPDATE user
+SET name='Aryan'
+WHERE user_id=1;
+
+UPDATE document
+SET title='Updated Report'
+WHERE document_id=1;
+
+UPDATE collaboration
+SET permission_type='View'
+WHERE collaboration_id=1;
+
+-- ==============================
+-- 5. DELETE DATA
+-- ==============================
+
+DELETE FROM comment
+WHERE comment_id=1;
+
+DELETE FROM version
+WHERE version_id=1;
+
+-- ==============================
+-- 6. SIMPLE SELECT
+-- ==============================
+
+SELECT * FROM user;
 SELECT * FROM document;
-
--- SELECT COLLABORATIONS
 SELECT * FROM collaboration;
-
--- SELECT COMMENTS
+SELECT * FROM version;
 SELECT * FROM comment;
-
--- SELECT ACTIVITY LOG
+SELECT * FROM folder;
+SELECT * FROM document_folder;
 SELECT * FROM activity_log;
+
+-- ==============================
+-- 7. JOIN QUERIES (FOR VIVA)
+-- ==============================
+
+-- View Documents with Owner Name
+SELECT document.title, user.name
+FROM document
+JOIN user
+ON document.owner_id = user.user_id;
+
+-- View Collaboration Details
+SELECT user.name, document.title, collaboration.permission_type
+FROM collaboration
+JOIN user ON collaboration.user_id=user.user_id
+JOIN document ON collaboration.document_id=document.document_id;
+
+-- View Comments on Documents
+SELECT user.name, document.title, comment.comment_text
+FROM comment
+JOIN user ON comment.user_id=user.user_id
+JOIN document ON comment.document_id=document.document_id;
+
+-- View Document Versions
+SELECT document.title, version.content
+FROM version
+JOIN document ON version.document_id=document.document_id;
+
+-- View Activity Log
+SELECT user.name, document.title, activity_log.action_type
+FROM activity_log
+JOIN user ON activity_log.user_id=user.user_id
+JOIN document ON activity_log.document_id=document.document_id;
