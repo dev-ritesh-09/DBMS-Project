@@ -89,6 +89,30 @@ The ER Diagram represents the relationship between different entities involved i
 
 ---
 
+## Database Normalization (Up to 3NF)
+
+The database schema has been designed and normalized to ensure data integrity and reduce redundancy.
+
+### 1. First Normal Form (1NF)
+- **Rule**: Eliminate repeating groups and ensure atomicity.
+- **Implementation**: All attributes in the tables contain atomic values. There are no repeating groups or arrays. Each table has a Primary Key to uniquely identify records.
+
+### 2. Second Normal Form (2NF)
+- **Rule**: Eliminate partial dependencies (apply to tables with composite keys).
+- **Implementation**: All tables are in 1NF. For tables with composite primary keys (e.g., `Collaboration`, `Document_Folder`), all non-key attributes are fully dependent on the entire primary key, not just a part of it.
+
+### 3. Third Normal Form (3NF)
+- **Rule**: Eliminate transitive dependencies.
+- **Implementation**: All tables are in 2NF. There are no transitive dependencies; non-key attributes depend *only* on the Primary Key. For example, user details are stored only in the `User` table and referenced via foreign keys elsewhere.
+
+### Normalized EER Diagram
+
+![Normalization Diagram](Normalization%20using%20MySQL%20Workbench.png)
+
+The database schema was normalized up to Third Normal Form (3NF) using MySQL Workbench. Reverse engineering was used to generate the EER diagram from the implemented schema. All tables satisfy normalization conditions with no partial or transitive dependencies.
+
+---
+
 ## 👨‍💻 Team Members
 
 - Team Leader: *Ritesh Kumar*  
