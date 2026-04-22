@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DocFlow | Create Document</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<header class="topbar">
+		<h2>Create Document</h2>
+		<a class="btn" href="dashboard.html">Back to Dashboard</a>
+	</header>
+
+	<main class="page-shell">
+		<section class="card">
+			<form id="create-doc-form" class="form-grid">
+				<label>Title</label>
+				<input type="text" id="doc-title" required>
+				<label>Content</label>
+				<textarea id="doc-content" rows="14" required></textarea>
+				<button class="btn primary" type="submit">Create</button>
+			</form>
+			<p id="create-doc-message" class="message"></p>
+		</section>
+	</main>
+
+	<script src="js/api.js"></script>
+	<script src="js/document.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DocFlow | Folders</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<header class="topbar">
+		<h2>Folders</h2>
+		<a class="btn" href="dashboard.html">Back to Dashboard</a>
+	</header>
+
+	<main class="page-shell two-col">
+		<section class="card">
+			<h3>Create Folder</h3>
+			<form id="folder-create-form" class="form-grid">
+				<label>Folder Name</label>
+				<input type="text" id="folder-name" required>
+				<button class="btn primary" type="submit">Create Folder</button>
+			</form>
+			<p id="folder-create-message" class="message"></p>
+
+			<h3>Move Document to Folder</h3>
+			<form id="folder-move-form" class="form-grid">
+				<label>Document ID</label>
+				<input type="number" id="move-document-id" min="1" required>
+				<label>Folder ID</label>
+				<input type="number" id="move-folder-id" min="1" required>
+				<button class="btn" type="submit">Move</button>
+			</form>
+			<p id="folder-move-message" class="message"></p>
+		</section>
+
+		<section class="card">
+			<div class="section-head">
+				<h3>Your Folders</h3>
+				<button class="btn" id="refresh-folders" type="button">Refresh</button>
+			</div>
+			<div id="folder-list" class="list"></div>
+		</section>
+	</main>
+
+	<script src="js/api.js"></script>
+	<script src="js/folder.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DocFlow | Login</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<main class="auth-shell">
+		<section class="card auth-card">
+			<h1>DocFlow</h1>
+			<p class="muted">Multi-user document editor</p>
+
+			<div class="tabs">
+				<button id="show-login" class="tab-btn active" type="button">Login</button>
+				<button id="show-register" class="tab-btn" type="button">Register</button>
+			</div>
+
+			<form id="login-form" class="form-grid">
+				<label>Email</label>
+				<input type="email" id="login-email" required>
+				<label>Password</label>
+				<input type="password" id="login-password" required>
+				<button class="btn primary" type="submit">Login</button>
+			</form>
+
+			<form id="register-form" class="form-grid hidden">
+				<label>Name</label>
+				<input type="text" id="register-name" required>
+				<label>Email</label>
+				<input type="email" id="register-email" required>
+				<label>Password</label>
+				<input type="password" id="register-password" required>
+				<label>Role</label>
+				<select id="register-role">
+					<option value="Editor">Editor</option>
+					<option value="Admin">Admin</option>
+				</select>
+				<button class="btn primary" type="submit">Create Account</button>
+			</form>
+
+			<p id="auth-message" class="message"></p>
+		</section>
+	</main>
+
+	<script src="js/api.js"></script>
+	<script src="js/login.js"></script>
+</body>
+</html>

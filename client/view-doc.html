@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DocFlow | View Document</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<header class="topbar">
+		<h2 id="view-title">Document</h2>
+		<a class="btn" href="dashboard.html">Back to Dashboard</a>
+	</header>
+
+	<main class="page-shell two-col">
+		<section class="card">
+			<form id="update-doc-form" class="form-grid">
+				<input type="hidden" id="view-doc-id">
+				<label>Title</label>
+				<input type="text" id="view-doc-title" required>
+				<label>Content</label>
+				<textarea id="view-doc-content" rows="16" required></textarea>
+				<button class="btn primary" type="submit">Save New Version</button>
+			</form>
+			<p id="view-doc-message" class="message"></p>
+		</section>
+
+		<section class="card stack">
+			<div>
+				<h3>Comments</h3>
+				<form id="comment-form" class="inline-form">
+					<input type="text" id="comment-text" placeholder="Write a comment" required>
+					<button class="btn" type="submit">Add</button>
+				</form>
+				<div id="comments-list" class="list small"></div>
+			</div>
+
+			<div>
+				<h3>Version History</h3>
+				<div id="versions-list" class="list small"></div>
+			</div>
+		</section>
+	</main>
+
+	<script src="js/api.js"></script>
+	<script src="js/comment.js"></script>
+	<script src="js/document.js"></script>
+</body>
+</html>

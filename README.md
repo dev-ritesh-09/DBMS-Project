@@ -1,133 +1,95 @@
-# 📄 Multi-User Document Editor System
+# Multi-User Document Editor System
 
-## 📌 Project Description
+## Overview
+This project is a collaborative document platform with role-based access, sharing permissions, version history, comments, folder organization, and activity logging.
 
-The **Multi-User Document Editor System** is a collaborative platform that allows multiple users to create, edit, share, and manage documents in real-time. The system supports user access control, document versioning, commenting, activity tracking, and folder-based organization for efficient document management.
+## Completed Modules
+- Backend API in PHP (all endpoints implemented)
+- Frontend UI in HTML/CSS/JavaScript (all pages implemented)
+- MySQL schema and sample data scripts
 
-This project demonstrates database design concepts such as Entity-Relationship Modeling (ER Diagram), relational schema, and SQL operations including CRUD functionalities.
+## Stack
+- Frontend: HTML, CSS, Vanilla JavaScript
+- Backend: PHP (PDO)
+- Database: MySQL
+- Local server: XAMPP or any PHP + MySQL setup
 
----
+## Project Structure
+- client/: frontend pages, styles, JavaScript
+- server/: API endpoints and config
+- database/: schema and sample data
+- Schema.sql: coursework SQL reference
 
-## 🎯 Objectives
+## Setup Guide
+1. Create database schema:
+	- Run database/schema.sql in MySQL.
+2. Add sample records:
+	- Run database/sample_data.sql.
+3. Configure backend connection via environment variables (optional):
+	- DB_HOST (default 127.0.0.1)
+	- DB_PORT (default 3306)
+	- DB_NAME (default multi_user_editor)
+	- DB_USER (default root)
+	- DB_PASS (default empty)
+4. Host the repository in a PHP server root (for XAMPP, under htdocs).
+5. Open client/index.html from the local server URL.
 
-- To allow multiple users to create and manage documents
-- To enable document sharing and collaboration
-- To maintain version history of documents
-- To support commenting on documents
-- To track user activities on documents
-- To organize documents into folders
+## One-Click Local Run
+From the project root, run:
 
----
+```bash
+./run-local.sh
+```
 
-## 🧩 Features
+This starts a local PHP server at http://127.0.0.1:8080 and opens the app automatically.
 
-- User Registration and Management  
-- Document Creation and Editing  
-- Document Sharing with Permissions  
-- Version Control  
-- Comment System  
-- Activity Logging  
-- Folder Management  
-- Multi-user Collaboration  
+## Default Test Login
+If you loaded sample data, you can login with any sample email.
+- Example emails:
+  - ritesh@example.com
+  - kajal@example.com
+  - rudra@example.com
+- Password hash is preloaded in sample data; you can also register a fresh account from the UI.
 
----
+## API Endpoints
+### User
+- POST /server/api/user/register.php
+- POST /server/api/user/login.php
+- GET /server/api/user/get_users.php
 
-## 🗃️ Database Schema
+### Document
+- POST /server/api/document/create.php
+- GET /server/api/document/get.php
+- POST /server/api/document/update.php
+- POST /server/api/document/delete.php
+- GET /server/api/document/version.php
 
-The system consists of the following tables:
+### Collaboration
+- POST /server/api/collaboration/share.php
+- POST /server/api/collaboration/permission.php
 
-- **User** – Stores user details  
-- **Document** – Stores document information  
-- **Collaboration** – Manages document sharing among users  
-- **Version** – Maintains document edit history  
-- **Comment** – Stores comments on documents  
-- **Activity_Log** – Tracks user actions  
-- **Folder** – Organizes documents  
-- **Document_Folder** – Maps documents to folders  
+### Folder
+- POST /server/api/folder/create.php
+- GET /server/api/folder/get.php
+- POST /server/api/folder/move.php
 
----
+### Comment
+- POST /server/api/comment/add.php
+- GET /server/api/comment/get.php
 
-## 🔗 Entity Relationships
+### Activity
+- POST /server/api/activity/log.php
+- GET /server/api/activity/get.php
 
-- A User can create multiple Documents  
-- A Document belongs to one User  
-- Multiple Users can collaborate on a Document  
-- A Document can have multiple Versions  
-- Users can comment on Documents  
-- Activity logs track user interactions  
-- Documents can be stored in multiple Folders  
+## Feature Coverage
+- Registration and login
+- Document create, read, update, delete
+- Automatic version creation on content updates
+- Share documents with View/Edit permission
+- Comment on documents
+- Create folders and move documents
+- Activity tracking for major actions
 
----
-
-## 💻 Technologies Used
-
-| Technology | Usage |
-|------------|--------|
-| HTML | Frontend Structure |
-| CSS | Styling |
-| PHP | Backend |
-| MySQL | Database |
-| XAMPP | Server |
-| Draw.io | ER Diagram |
-
----
-
-## ⚙️ SQL Operations Implemented
-
-- CREATE Database and Tables  
-- INSERT Records  
-- UPDATE Records  
-- DELETE Records  
-- SELECT Queries  
-- JOIN Queries  
-
----
-
-## 📊 ER Diagram
-
-The ER Diagram represents the relationship between different entities involved in the Multi-User Document Editor System such as User, Document, Collaboration, Version, Comment, Folder, and Activity Log.
-
----
-
-## Database Normalization (Up to 3NF)
-
-The database schema has been designed and normalized to ensure data integrity and reduce redundancy.
-
-### 1. First Normal Form (1NF)
-- **Rule**: Eliminate repeating groups and ensure atomicity.
-- **Implementation**: All attributes in the tables contain atomic values. There are no repeating groups or arrays. Each table has a Primary Key to uniquely identify records.
-
-### 2. Second Normal Form (2NF)
-- **Rule**: Eliminate partial dependencies (apply to tables with composite keys).
-- **Implementation**: All tables are in 1NF. For tables with composite primary keys (e.g., `Collaboration`, `Document_Folder`), all non-key attributes are fully dependent on the entire primary key, not just a part of it.
-
-### 3. Third Normal Form (3NF)
-- **Rule**: Eliminate transitive dependencies.
-- **Implementation**: All tables are in 2NF. There are no transitive dependencies; non-key attributes depend *only* on the Primary Key. For example, user details are stored only in the `User` table and referenced via foreign keys elsewhere.
-
-### Normalized EER Diagram
-
-![Normalization Diagram](Normalization%20using%20MySQL%20Workbench.png)
-
-The database schema was normalized up to Third Normal Form (3NF) using MySQL Workbench. Reverse engineering was used to generate the EER diagram from the implemented schema. All tables satisfy normalization conditions with no partial or transitive dependencies.
-
----
-
-## 👨‍💻 Team Members
-
-- Team Leader: *Ritesh Kumar*  
-- Member 1: *Kajal Kiran*  
-- Member 2: *Rudra Mohan*  
-- Member 3: *Raj Dixit*  
-
----
-
-## 🔗 GitHub Repository
-
-Add your GitHub repository link here.
-
----
-
-## 📅 Submission
-
-This project is submitted as part of the Database Management System coursework.
+## Notes
+- Authentication is currently session-less and browser-local (localStorage user state).
+- CORS is enabled in backend bootstrap for local development.

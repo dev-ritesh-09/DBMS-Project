@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DocFlow | Share</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<header class="topbar">
+		<h2>Share Document</h2>
+		<a class="btn" href="dashboard.html">Back to Dashboard</a>
+	</header>
+
+	<main class="page-shell">
+		<section class="card">
+			<form id="share-form" class="form-grid">
+				<label>Document ID</label>
+				<input type="number" id="share-document-id" min="1" required>
+				<label>User ID to Share With</label>
+				<input type="number" id="share-user-id" min="1" required>
+				<label>Permission</label>
+				<select id="share-permission">
+					<option value="View">View</option>
+					<option value="Edit">Edit</option>
+				</select>
+				<button class="btn primary" type="submit">Share</button>
+			</form>
+			<p id="share-message" class="message"></p>
+		</section>
+	</main>
+
+	<script src="js/api.js"></script>
+	<script src="js/collaboration.js"></script>
+</body>
+</html>
